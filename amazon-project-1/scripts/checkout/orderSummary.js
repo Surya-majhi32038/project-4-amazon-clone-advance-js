@@ -3,7 +3,7 @@ import { products , getProduct} from "../../data/products.js";
 import { deliveryOptions,funDeProduct } from "../../data/deliveryOption.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js"; // it is a ecmascript module version , we can say that ecm
-
+import { formatCurrency } from "../utils/money.js";
 //console.log(deliveryDate.format("dddd, MMMM D")); // display right format
 export function renderOrderSummary() {
   let cartSummaryHTML = "";
@@ -49,7 +49,7 @@ export function renderOrderSummary() {
                   ${matchingProduct.name}
                 </div>
                 <div class="product-price">
-                  $${matchingProduct.priceCents}
+                  $${formatCurrency(matchingProduct.priceCents)}
                 </div>
                 <div class="product-quantity">
                   <span>
@@ -93,7 +93,7 @@ export function renderOrderSummary() {
       const priceString =
         deliveryOption.priceCents === 0
           ? "FREE"
-          : `${deliveryOption.priceCents}`;
+          : `${formatCurrency(deliveryOption.priceCents)}`;
 
       const isCheckde = deliveryOption.id === cartItem.deliveryOptionId;
       //console.log(isCheckde);
@@ -110,7 +110,7 @@ export function renderOrderSummary() {
                       ${dateString}
                     </div>
                     <div class="delivery-option-price">
-                     ${priceString} Shipping
+                     $${priceString} Shipping
                     </div>
                   </div>
                 </div>
