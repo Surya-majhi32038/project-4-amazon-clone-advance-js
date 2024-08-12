@@ -69,9 +69,21 @@ export function renderOrderSummary() {
                       cartItem.quantity
                     }</span>
                   </span>
-                  <span class="update-quantity-link link-primary">
+
+
+                  <span data-product-Id-Update = "${
+                    matchingProduct.id
+                  }"  class="update-quantity-link link-primary update-id-${
+      matchingProduct.id
+    }">
                     Update
+
                   </span>
+                  <div class ="update-element" style ="display:none;" >
+                    <input class ="js-quantity-input quantity-input" type ="number" min ="1" max="10">
+                    <span class = "save-quantity-link link-primary" > Save </span>
+                  </div>
+
                   <span data-product-Id = "${
                     matchingProduct.id
                   }" class="delete-quantity-link link-primary js-delete-btn js-delete-btn-${
@@ -131,7 +143,47 @@ export function renderOrderSummary() {
     });
     return html;
   }
+  // "update" link formate and update
+  document.querySelectorAll(".update-quantity-link").forEach((data) => {
+    data.addEventListener("click", () => {
+      const productId = data.dataset.productIdUpdate;
+      //document.querySelector('.update-element').style.display = "intial";
+      const val = document.querySelector(
+        `.js-cart-item-container-${productId} .update-element`
+      );
+      val.style.display = "initial";
+    });
+  });
 
+  // for the "save" part
+  document.querySelectorAll(".save-quantity-link").forEach((item) => {
+    item.addEventListener("click", () => {
+      const productId = item
+        .closest(".js-cart-item-container")
+        .querySelector(".update-quantity-link").dataset.productIdUpdate;
+      console.log(productId);
+      const quantityInput = document.querySelector(
+        `.js-cart-item-container-${productId} .js-quantity-input`
+      );
+      const newQuantity = quantityInput.value;
+      cart.forEach((cartItem) => {
+        if (cartItem.productId == productId) {
+          console.log(typeof(cartItem.quantity))
+          cartItem.quantity = newQuantity;
+        }
+      });
+      const val = document.querySelector(
+        `.js-cart-item-container-${productId} .update-element`
+      );
+      val.style.display = "none";
+       renderOrderSummary();
+      renderPaymentSummary();
+    });
+  });
+
+
+
+  // for a delete botton
   document.querySelectorAll(".js-delete-btn").forEach((link) => {
     link.addEventListener("click", () => {
       const productId = link.dataset.productId;

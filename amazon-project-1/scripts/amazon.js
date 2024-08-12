@@ -74,7 +74,7 @@ function cart_quantity_counter() {
     document.querySelector(".js-add-to-cart-quantity").innerHTML = count;
   }
 }
-
+cart_quantity_counter();
 
 document.querySelectorAll(".js-add-to-cart-btn").forEach((button) => {
   button.addEventListener("click", () => {

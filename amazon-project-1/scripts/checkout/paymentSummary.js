@@ -1,4 +1,4 @@
-import { cart }  from "../../data/cart.js";
+import { cart,updateQuantity }  from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
 import { funDeProduct } from "../../data/deliveryOption.js";
 import { formatCurrency } from "../utils/money.js";
@@ -25,7 +25,7 @@ export function renderPaymentSummary(){
           </div>
 
           <div class="payment-summary-row">
-            <div>Items (3):</div>
+            <div style="display: inline" > Items ( <div class = "items_number_oder" style="display: inline; margin-left: -4px;"> </div>) </div>
             <div class="payment-summary-money">$${formatCurrency(productPrice)}</div>
           </div>
 
@@ -52,5 +52,9 @@ export function renderPaymentSummary(){
             Place your order
           </button>
    `;
+
+    let count = updateQuantity();
+    
    document.querySelector('.js-payment-summary').innerHTML = PaymentSummaryHTML;
+   document.querySelector('.items_number_oder').innerHTML = count;
 }
