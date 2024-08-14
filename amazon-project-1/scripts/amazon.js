@@ -1,5 +1,6 @@
 import { cart, addToCart,updateQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
+// only for testing purpose 
 
 let productsHTML = " ";
 products.forEach((product) => {
