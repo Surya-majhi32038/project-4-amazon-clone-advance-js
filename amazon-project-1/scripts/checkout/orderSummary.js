@@ -156,19 +156,25 @@ export function renderOrderSummary() {
   });
 
   // for the "save" part
+
   document.querySelectorAll(".save-quantity-link").forEach((item) => {
     item.addEventListener("click", () => {
       const productId = item
         .closest(".js-cart-item-container")
         .querySelector(".update-quantity-link").dataset.productIdUpdate;
-      console.log(productId);
-      const quantityInput = document.querySelector(
+     // console.log(productId);
+      const newQuantity = document.querySelector(
         `.js-cart-item-container-${productId} .js-quantity-input`
-      );
-      const newQuantity = quantityInput.value;
+      ).value;
+      if(newQuantity === ""){
+        alert("Enter input ");
+        return;
+      }
+      //const newQuantity = quantityInput.value;
+      
       cart.forEach((cartItem) => {
         if (cartItem.productId == productId) {
-          console.log(typeof cartItem.quantity);
+          //console.log(typeof cartItem.quantity);
           cartItem.quantity = newQuantity;
         }
       });

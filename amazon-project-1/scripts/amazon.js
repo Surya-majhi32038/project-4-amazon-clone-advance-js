@@ -1,6 +1,6 @@
-import { cart, addToCart,updateQuantity } from "../data/cart.js";
+import { cart, addToCart, updateQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
-// only for testing purpose 
+// only for testing purpose
 
 let productsHTML = " ";
 products.forEach((product) => {
@@ -54,6 +54,7 @@ products.forEach((product) => {
           }">
             Add to Cart
           </button>
+          
         </div>`;
 });
 document.querySelector(".js-products-grid").innerHTML = productsHTML;
@@ -80,8 +81,30 @@ cart_quantity_counter();
 document.querySelectorAll(".js-add-to-cart-btn").forEach((button) => {
   button.addEventListener("click", () => {
     const productId = button.dataset.productId;
+    // showAdded();
     const val = document.querySelector(`.js-quantity-selecter-${productId}`);
     addToCart(productId, Number(val.value));
     cart_quantity_counter();
+    Added(button);
   });
 });
+showAdded();
+function showAdded() {
+  cart.forEach((item) => {
+    let button;
+    if (item.isAdd == 1) {
+      button = document.querySelector(
+        `.js-add-to-cart-btn[data-product-id="${item.productId}"]`
+      );
+
+      Added(button);
+    }
+  });
+}
+function Added(button) {
+  button.innerHTML = "Added";
+  button.style.backgroundColor = "black";
+  button.style.color = "white";
+  button.style.border = "1px solid black";
+  button.style.fontWeight  = "600";
+}

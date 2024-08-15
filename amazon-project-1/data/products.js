@@ -26,6 +26,15 @@ class Product {
     return ``;
   }
 }
+
+// inheritance from Product class
+// class Appliance extends Product {
+//   instructionLink;
+//   warrantyLink;
+
+//     // call parents class constructor 
+//     super(productDetails);
+// }
 // inheritance from Product class
 class Clothing extends Product {
   sizeChartLink;
